@@ -1,4 +1,19 @@
-export const List = (props: any) => {
+import {User} from "../../../interface/TypeUser";
+
+interface Project {
+    id: string;
+    title: string;
+    personId: string;
+    pin: boolean;
+    organization: string;
+}
+
+interface ListProps {
+    list: Project[];
+    users: User[];
+}
+
+export const List = (props: ListProps) => {
     const {list, users} = props;
     return (
         <table>

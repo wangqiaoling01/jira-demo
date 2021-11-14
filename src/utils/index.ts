@@ -1,5 +1,20 @@
 import {useEffect, useState} from "react";
 
+const isFalsy = (value: unknown) => value ? false : !value;
+
+const cleanObject = (object: object) => {
+    const result = {...object};
+    Object.keys(result).forEach((key) => {
+        // @ts-ignore
+        const value = result[key];
+        if (isFalsy(value)) {
+            // @ts-ignore
+            delete result[key]
+        }
+    });
+    return result;
+};
+
 /**
  * 自定义hook：页面挂载时执行的函数 callback
  * @param callback
@@ -22,7 +37,7 @@ const useMount = (callback: () => void) => {
 //   }
 // };
 
-const useDebounce = (value: any, delay: number) => {
+const useDebounce = <T>(value: T, delay?: number): T => {
     const [debounceValue, setDebounceValue] = useState(value);
 
     useEffect(() => {
@@ -36,5 +51,6 @@ const useDebounce = (value: any, delay: number) => {
 }
 export {
     useMount,
-    useDebounce
+    useDebounce,
+    cleanObject,
 }

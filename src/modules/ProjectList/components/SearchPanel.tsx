@@ -1,5 +1,14 @@
+import {User} from "../../../interface/TypeUser";
 
-export const SearchPanel = (props: any) => {
+interface SearchPanelProps {
+    users: User[];
+    param: {
+        name: string;
+        personId: string;
+    },
+    setParam: (param: SearchPanelProps['param']) => void;
+}
+export const SearchPanel = (props: SearchPanelProps) => {
   const {param, setParam, users} = props;
 
   return (
@@ -19,7 +28,7 @@ export const SearchPanel = (props: any) => {
               })}>
                   <option value={''}>负责人</option>
                   {
-                      users.map((user: any) => (
+                      users.map((user: User) => (
                           <option value={user.id}>{user.name}</option>
                       ))
                   }

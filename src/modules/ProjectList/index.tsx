@@ -1,7 +1,8 @@
 import {SearchPanel, List} from "./components";
 import {useEffect, useState} from "react";
-import {useDebounce} from "../../utils";
+import {cleanObject, useDebounce} from "../../utils";
 import {apiUrl} from "../../dicts";
+import qs from 'qs';
 
 const ProjectList = () => {
     const [param, setParam] = useState({
@@ -11,10 +12,10 @@ const ProjectList = () => {
     const [users, setUsers] = useState([]);
     const [list, setList] = useState([]);
 
-    const debounceParam = useDebounce(param, 2000);
+    const debounceParam = useDebounce(param, 500);
 
     useEffect(() => {
-        fetch( `${apiUrl}/projects`).then(async res=>{
+        fetch( `${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async res=>{
             if (res.ok) {
                 setList(await res.json())
             }
@@ -22,6 +23,7 @@ const ProjectList = () => {
     }, [debounceParam]);
 
     useEffect(() => {
+        console.log('ddd')
         fetch( `${apiUrl}/users`).then(async res => {
             setUsers(await res.json())
         });
@@ -29,7 +31,7 @@ const ProjectList = () => {
 
     return (
         <>
-            <SearchPanel param={param} setParam={setParam} users={users} setUsers={setUsers} />
+            <SearchPanel param={param} setParam={setParam} users={users} />
             <List users={users} list={list} />
         </>
     );
