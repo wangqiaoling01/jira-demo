@@ -10,6 +10,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "jira-dev-tool": "^1.7.61",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -48,13 +50,19 @@
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.css": "stylelint --fix",
+    "*.less": [
+      "stylelint --syntax less --fix"
+    ]
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "*.{js, css,md,ts,tsx}": "prettier --write"
+  "msw": {
+    "workerDirectory": "public"
   }
 }

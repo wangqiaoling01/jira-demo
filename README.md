@@ -18,3 +18,12 @@ yarn add eslint-config-prettier -D
 ```shell
 npm install -g @commitlint/cli @commitlint/config-conventional
 ```
+
+3. mock数据
+```shell
+npm i json-server -g
+echo {}> db.json
+json-server --watch db.json
+```
+
+
